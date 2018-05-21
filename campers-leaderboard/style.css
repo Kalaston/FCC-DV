@@ -10,6 +10,11 @@ body {
 
 th {
   background-color: #F6F7F9; }
+  th:hover {
+    cursor: pointer; }
+  th:focus, th:active {
+    color: white;
+    background-color: black; }
 
 td {
   background-color: white;

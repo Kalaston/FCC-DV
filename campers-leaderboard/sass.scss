@@ -13,6 +13,10 @@ body {
 
 th {
   background-color: #F6F7F9;
+  &:hover {cursor: pointer;}
+  &:focus,
+  &:active {color: white; background-color: black}
+
 }
 
 td {
