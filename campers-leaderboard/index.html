@@ -20,7 +20,12 @@
         this.state = {
           allTimeCampers: [],
           recentCampers: [],
+          renderView: [],
+          switch: 0
         }
+
+        this.tabAll = this.tabAll.bind(this);
+        this.tabRecent = this.tabRecent.bind(this);
       }
 
       componentWillMount() {
@@ -37,13 +42,34 @@
           this.setState({
             allTimeCampers: camp
           });
-        })
+        });
       }
 
       tab() {
+        if(this.state.switch == 0) {
+          let allTime = [];
+          this.state.allTimeCampers.map(item => {
+            allTime.push(
+              <tr key={item.username}>
+                <td className="name"><img src={item.img}/>{item.username}</td>
+                <td className="recent">{item.recent}</td>
+                <td>{item.alltime}</td>
+              </tr>)
+          });
+          return allTime
+        } else {
+          return this.state.renderView;
+        }
+      }
+
+      tabAll() {
+        if (this.state.switch == 0) {
+          this.setState({
+            switch: 1
+          });
+        }
         let allTime = [];
         this.state.allTimeCampers.map(item => {
-          console.log(item);
           allTime.push(
             <tr key={item.username}>
               <td className="name"><img src={item.img}/>{item.username}</td>
@@ -51,9 +77,29 @@
               <td>{item.alltime}</td>
             </tr>)
         });
-        return (
-           allTime
-        )
+       this.setState({
+         renderView: allTime
+       })
+      }
+
+      tabRecent() {
+        if (this.state.switch == 0) {
+          this.setState({
+            switch: 1
+          });
+        }
+        let recent = [];
+        this.state.recentCampers.map(item => {
+          recent.push(
+            <tr key={item.username}>
+              <td className="name"><img src={item.img}/>{item.username}</td>
+              <td className="recent">{item.recent}</td>
+              <td>{item.alltime}</td>
+            </tr>)
+        });
+       this.setState({
+         renderView: recent
+       })
       }
 
       render() {
@@ -66,8 +112,8 @@
                 <tbody>
                   <tr>
                     <th>Camper Name</th>
-                    <th>Points in past 30 days</th>
-                    <th>Total Points</th>
+                    <th onClick={this.tabRecent}>Points in past 30 days</th>
+                    <th onClick={this.tabAll}>Total Points</th>
                   </tr>
                   {this.tab()}
                 </tbody>
