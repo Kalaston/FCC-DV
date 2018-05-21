@@ -40,6 +40,22 @@
         })
       }
 
+      tab() {
+        let allTime = [];
+        this.state.allTimeCampers.map(item => {
+          console.log(item);
+          allTime.push(
+            <tr key={item.username}>
+              <td className="name"><img src={item.img}/>{item.username}</td>
+              <td className="recent">{item.recent}</td>
+              <td>{item.alltime}</td>
+            </tr>)
+        });
+        return (
+           allTime
+        )
+      }
+
       render() {
         return(
           <div>
@@ -53,21 +69,7 @@
                     <th>Points in past 30 days</th>
                     <th>Total Points</th>
                   </tr>
-                  <tr>
-                    <td>Karina</td>
-                    <td>15</td>
-                    <td>1300</td>
-                  </tr>
-                  <tr>
-                    <td>Maria</td>
-                    <td>20</td>
-                    <td>400</td>
-                  </tr>
-                  <tr>
-                    <td>tugfa</td>
-                    <td>10</td>
-                    <td>90</td>
-                  </tr>
+                  {this.tab()}
                 </tbody>
               </table>  
             </div>

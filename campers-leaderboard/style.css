@@ -1,33 +1,41 @@
-.body {
-  background-color: #E9EBEE;
-}
+body {
+  background-color: #E9EBEE !important; }
 
 .title {
   width: 300px;
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 50px;
-  text-align: center;
-}
+  text-align: center; }
 
-.table-title {
-  background-color: #F6F7F9;
-}
+th {
+  background-color: #F6F7F9; }
+
+td {
+  background-color: white;
+  width: 33%; }
 
 .table-elements {
-  background-color: white;
-}
+  background-color: white; }
 
 .table {
   margin: 0 auto;
   width: 800px;
-  height: 1200px;
-  background-color: #F6F7F9;
-}
+  background-color: #F6F7F9; }
 
 table {
+  table-layout: fixed;
   width: 100%;
-  text-align: center;
-}
+  text-align: center; }
+
+.name {
+  text-align: left; }
+
+img {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  margin-left: 30px;
+  margin-right: 10px; }
 
 /*# sourceMappingURL=style.css.map */
