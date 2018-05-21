@@ -5,6 +5,7 @@
   <script src="https://fb.me/react-15.2.1.js"></script>
   <script src="https://fb.me/react-dom-15.2.1.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
   <title>Campers Leaderboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
   <link rel="stylesheet" href="style.css">
@@ -14,10 +15,62 @@
 
   <script type="text/babel">
     class Leaderboard extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          allTimeCampers: [],
+          recentCampers: [],
+        }
+      }
+
+      componentWillMount() {
+        let camp = []
+        axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/recent').then(req => {
+          camp = req.data;
+          this.setState({
+            recentCampers: camp
+          });
+        });
+
+        axios.get('https://fcctop100.herokuapp.com/api/fccusers/top/alltime').then(req => {
+          camp = req.data;
+          this.setState({
+            allTimeCampers: camp
+          });
+        })
+      }
+
       render() {
         return(
           <div>
-            Hello World
+            <div className="title"><h1>Campers Leaderboard</h1></div>
+
+            <div className="table">
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Camper Name</th>
+                    <th>Points in past 30 days</th>
+                    <th>Total Points</th>
+                  </tr>
+                  <tr>
+                    <td>Karina</td>
+                    <td>15</td>
+                    <td>1300</td>
+                  </tr>
+                  <tr>
+                    <td>Maria</td>
+                    <td>20</td>
+                    <td>400</td>
+                  </tr>
+                  <tr>
+                    <td>tugfa</td>
+                    <td>10</td>
+                    <td>90</td>
+                  </tr>
+                </tbody>
+              </table>  
+            </div>
           </div>
         )
       }
