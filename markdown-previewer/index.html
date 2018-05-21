@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://fb.me/react-15.2.1.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+  <title>MarkDown Previewer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: "Hello\n=======\n\nWorld\n-----------\n \n### How are you\n \nText attributes *italic*, **bold**, \n`monospace`, ~~strikethrough~~ .\n\nList one:\n\n  * sunny\n  * cloudy\n  * rainy\n\nList 2:\n\n  1. coffee\n  2. tea\n  3. pop\n\nTry it yourself.\n\n"};
+   this.onChange = this.onChange.bind(this);
+  }
+ 
+  
+  onChange(event) {
+    const change = this.state;
+    change.text = event.target.value;
+    this.setState({text: change.text})
+    console.log(change.text)
+    console.log(this.state.text)
+  }
+  createMarkup() {
+    let text = marked(this.state.text, {sanitize: true})
+    return {__html: text}
+  }
+  render() {
+    return (
+      <div className="container">
+        <div className="title"><h1>MarkDown Previewer</h1></div>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="directions">Insert whatever you want,<br/> i'll be transformed!</div>
+            <textarea 
+              className="form-control" 
+              rows="20" 
+              onChange={this.onChange}
+              value={this.state.text}
+              >
+              
+            </textarea>
+          </div>
+          <div className="col-md-6">
+            <div className="directions">Text is parsed<br/> in real time!</div>
+            <div className="show"
+              dangerouslySetInnerHTML={this.createMarkup()}
+             >
+            </div>
+          </div>
+        </div>
+        <div className="title"><h4>Created By Aarón Reynoza for FreeCodeCamp!</h4></div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Clock />,
+  document.getElementById('root')
+);  
+  </script>
+</body>
+</html>
