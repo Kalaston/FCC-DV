@@ -19,67 +19,99 @@
   <script type="text/babel">
 
     const InfoCard = (props) => {
-      const ingredients = props.ingredients;
-      const renderIngredients = ingredients.map((ingredient, i) => {
-        return (
-          <div key={i} className="single-ingredient">
-            {ingredient}
-          </div>
-        )
-      });
-      return (
-        <div className="info-container">
-          <div className="info-title">Ingredients</div>
-          {renderIngredients}
-          <div className="procedure">
-            <div className="subtitle">Procedure</div>
-            {props.procedure}
-          </div>
-        </div>
-      )
-    }
+  const ingredients = props.ingredients;
+  const renderIngredients = ingredients.map((ingredient, i) => {
+    return (
+      <div key={i} className="single-ingredient">
+        {ingredient}
+      </div>
+    )
+  });
+  return (
+    <div className="info-container">
+      <div className="info-title">Ingredients</div>
+      {renderIngredients}
+      <div className="procedure">
+        <div className="subtitle">Procedure</div>
+        {props.procedure}
+      </div>
+      <div className="row buttons">
+        <button className="btn btn-danger">Delete</button>
+        <button className="btn btn-success">Edit</button>
+      </div>
+    </div>
+  )
+}
 
-    class App extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipes: [
+        {
+          name: 'Holi holiando frenchiando',
+          ingredients: ["hola", "hihi", "que hueva"],
+          procedure: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+          isHidden: true
+        },
+        {
+          name: 'Arroz con leche',
+          ingredients: ["arroz", "leche", "lalala"],
+          procedure: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+          isHidden: true
+        },
+        {
+          name: 'Frijoles',
+          ingredients: ["frijoles", "tortilla", "crema", "cosas ricas"],
+          procedure: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
           isHidden: true
         }
-      }
-
-      toggleVisibility() {
-        this.setState({
-          isHidden: !this.state.isHidden
-        })
-      }
-      
-      render() {
-        return (
-          <div className="container">
-            <div className="title">
-              <p>Recipe Box</p>
-              <h4>Made by Aarón Reynoza</h4>
-            </div>
-            <div className="col-lg-6 receipes-container">
-              <div className="recipe-box" id={1}>
-                <div onClick={this.toggleVisibility.bind(this)} className="recipe-title">Holi</div>
-                {!this.state.isHidden && <InfoCard ingredients={["holo", "hihi", "que hueva"]} procedure="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."/>}
-              </div>
-              <div className="recipe-box" id={2}>
-                <div onClick={this.toggleVisibility.bind(this)} className="recipe-title">Arroz con Leche</div>
-                {!this.state.isHidden && <InfoCard ingredients={["arroz", "leche", "lalala"]} procedure="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."/>}
-              </div>
-              <div className="recipe-box" id={3}>
-                <div onClick={this.toggleVisibility.bind(this)} className="recipe-title">Frijoles</div>
-                {!this.state.isHidden && <InfoCard ingredients={["frijoles", "tortilla", "crema", "cosas ricas"]} procedure="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />}
-              </div>
-            </div>
-          </div>
-        )
-      }
+      ]
     }
+    this.renderRecipes = this.renderRecipes.bind(this);
+  }
 
-    ReactDOM.render(<App/>, document.getElementById('root'));
+  renderRecipes() {
+    let totalRender = [];
+    let recipes = this.state.recipes;
+    totalRender = recipes.map(recipe => {
+      let recipeIndex = this.state.recipes.indexOf(recipe);
+      return(
+        <div className="recipe-box" key={recipe.name}>
+          <div 
+          className="recipe-title" onClick={() => {
+            recipes[recipeIndex].isHidden = !recipes[recipeIndex].isHidden;
+            this.setState({
+              recipes: recipes
+            })
+          }}>
+            <h4>{recipe.name}</h4>
+          </div>
+          {!this.state.recipes[recipeIndex].isHidden && <InfoCard ingredients={recipe.ingredients} procedure={recipe.procedure}/>}
+        </div>
+      );
+    });
+    return totalRender;
+  }
+  
+  render() {
+    return (
+      <div className="container">
+        <div className="title">
+          <p>Recipe Box</p>
+          <h4>Made by Aarón Reynoza</h4>
+        </div>
+        <div className="col-lg-6 receipes-container">
+          {this.renderRecipes()}
+        </div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+
   </script>
 </body>
 </html>
+

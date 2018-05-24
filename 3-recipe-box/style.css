@@ -2,6 +2,7 @@ body {
   background-image: url("https://cdn.stocksnap.io/img-thumbs/960w/APBDJIC32G.jpg");
   background-repeat: none;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .container {
@@ -23,7 +24,6 @@ body {
 .receipes-container {
   background-color: white;
   border-radius: 10px !important;
-  margin: 0 auto;
   padding: 10px;
 }
 
@@ -31,6 +31,7 @@ body {
   margin-top: 10px;
   color: #385997;
   border-bottom: 1px solid red;
+  border-top: 1px solid red;
 }
 .recipe-title:hover {
   cursor: pointer;
@@ -64,6 +65,17 @@ body {
   width: 100%;
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+.container {
+  margin-bottom: 20px;
+}
+
+.buttons {
+  padding: 10px !important;
+}
+.buttons button {
+  margin-right: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */
