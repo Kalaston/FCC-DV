@@ -1,0 +1,23 @@
+h1, li, .title {
+  font-family: 'Mina';
+}
+
+h1, h4, li {
+  text-align: center;
+}
+.title {
+  font-size: 20px;
+  border-bottom: 1px solid red;
+}
+li {
+  list-style-type: none;
+  font-size: 18px;
+}
+
+.jumbotron {
+  padding: 30px;
+}
+
+body {
+  background-color: #EEEEEE;
+}
